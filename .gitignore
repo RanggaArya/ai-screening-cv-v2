@@ -1,0 +1,16 @@
+# Virtual Environment
+venv/
+.venv/
+
+# Environment Variables
+.env
+
+# Python Caches
+__pycache__/
+*.pyc
+
+# Local Databases
+chroma_db_storage/
+
+# Uploaded Files
+uploads/

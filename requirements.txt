@@ -1,0 +1,19 @@
+# Web Framework
+fastapi
+uvicorn[standard]
+python-multipart
+
+# Asynchronous Task Queue
+celery
+redis
+
+# Pydantic for data validation
+pydantic
+pydantic-settings
+
+# AI & Vector DB
+google-generativeai
+chromadb
+pypdf
+sentence-transformers
+tenacity # For retries
