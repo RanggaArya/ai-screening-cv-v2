@@ -2,6 +2,7 @@ import os
 import uuid
 from fastapi import FastAPI, UploadFile, File, HTTPException, Form
 from typing import List
+from fastapi.middleware.cors import CORSMiddleware
 from . import schemas, tasks
 from .job_store import create_job, get_job_status
 
@@ -14,6 +15,14 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 document_paths: dict[str, str] = {}
 
 app = FastAPI(title="AI CV Evaluator API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # Izinkan semua origin (untuk development)
+    allow_credentials=True,
+    allow_methods=["*"], # Izinkan semua metode (GET, POST, dll)
+    allow_headers=["*"], # Izinkan semua header
+)
 
 @app.post("/upload", response_model=schemas.UploadResponse)
 async def upload_files(

@@ -17,3 +17,4 @@ chromadb
 pypdf
 sentence-transformers
 tenacity # For retries
+gunicorn
