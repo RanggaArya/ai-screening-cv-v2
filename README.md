@@ -9,7 +9,7 @@ This project is a backend service designed to automate the initial screening of 
 - **Backend Framework**: FastAPI
 - **Asynchronous Tasks**: Celery with Redis
 - **Vector Database**: ChromaDB (Persistent Local Storage)
-- **LLM Provider**: OpenAI (GPT-4o)
+- **LLM Provider**: Gemini (2.5-flash)
 - **PDF Parsing**: PyPDF
 - **Embeddings**: Sentence-Transformers
 
@@ -32,7 +32,7 @@ This project is a backend service designed to automate the initial screening of 
 
 - Python 3.9+
 - Redis Server (must be running locally)
-- An OpenAI API Key
+- An Gemini API Key
 
 ### 2. Installation
 
@@ -50,9 +50,9 @@ This project is a backend service designed to automate the initial screening of 
     ```
 
 3.  **Set up your environment variables:**
-    Create a file named `.env` in the root directory and add your OpenAI API key:
+    Create a file named `.env` in the root directory and add your Gemini API key:
     ```
-    OPENAI_API_KEY="sk-..."
+    GOOGLE_API_KEY="sk-..."
     ```
 
 ### 3. Data Ingestion
@@ -76,7 +76,7 @@ redis-server
 **Terminal 2: Start the Celery Worker**
 Make sure you are in the project's root directory.
 ```bash
-celery -A app.tasks.celery_app worker --loglevel=info
+celery -A app.tasks.celery_app worker --loglevel=info -P eventlet
 ```
 
 **Terminal 3: Start the FastAPI Server**
@@ -89,4 +89,5 @@ The API will be available at `http://127.0.0.1:8000`. You can access the auto-ge
 
 1.  **`POST /upload`**: Upload the candidate's CV and project report. You will receive unique IDs for each document.
 2.  **`POST /evaluate`**: Use the document IDs from the previous step to start the evaluation process. You will receive a `job_id`.
+
 3.  **`GET /result/{job_id}`**: Poll this endpoint periodically using the `job_id` to check the status. Once `status` is "completed", the `result` field will contain the full evaluation.
