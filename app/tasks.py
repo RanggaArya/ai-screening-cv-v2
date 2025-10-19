@@ -1,5 +1,5 @@
 import os
-from celery import Celery
+
 from .config import settings
 from .ai_utils import (
     parse_pdf,
@@ -9,15 +9,7 @@ from .ai_utils import (
 )
 from .job_store import update_job_status
 
-# Inisialisasi Celery
-celery_app = Celery(
-    __name__,
-    broker=settings.CELERY_BROKER_URL,
-    backend=settings.CELERY_RESULT_BACKEND
-)
-
-@celery_app.task(name="process_evaluation")
-def process_evaluation(job_id: str, cv_path: str, report_path: str, job_title: str):
+def process_evaluation_sync(job_id: str, cv_path: str, report_path: str, job_title: str):
     """
     Tugas Celery yang menjalankan seluruh pipeline evaluasi AI secara asinkron.
     """

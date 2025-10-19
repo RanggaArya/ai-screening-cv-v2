@@ -1,6 +1,6 @@
 import os
 import uuid
-from fastapi import FastAPI, UploadFile, File, HTTPException, Form
+from fastapi import FastAPI, UploadFile, File, HTTPException, Form, BackgroundTasks
 from typing import List
 from fastapi.middleware.cors import CORSMiddleware
 from . import schemas, tasks
@@ -56,7 +56,10 @@ async def upload_files(
     return schemas.UploadResponse(message="Files uploaded successfully", files=uploaded_files)
 
 @app.post("/evaluate", response_model=schemas.EvaluateResponse, status_code=202)
-def evaluate_candidate(request: schemas.EvaluateRequest):
+def evaluate_candidate(
+    request: schemas.EvaluateRequest,
+    background_tasks: BackgroundTasks
+    ):
     """
     Memicu pipeline evaluasi AI secara asinkron.
     """
@@ -70,7 +73,8 @@ def evaluate_candidate(request: schemas.EvaluateRequest):
     create_job(job_id)
 
     # Kirim tugas ke Celery untuk diproses di background
-    tasks.process_evaluation.delay(
+    background_tasks.add_task(
+        tasks.process_evaluation_sync,
         job_id=job_id,
         cv_path=cv_path,
         report_path=report_path,
