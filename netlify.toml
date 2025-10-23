@@ -1,0 +1,13 @@
+[build]
+  # Perintah untuk menginstal dependensi Python
+  command = "pip install -r requirements.txt"
+  # Direktori tempat Netlify akan menaruh fungsi backend Anda
+  functions = "api/"
+  # Direktori ini sebenarnya tidak dipakai untuk pure backend, tapi perlu ada
+  publish = "." 
+
+[[redirects]]
+  # Arahkan semua request ke fungsi Python Anda
+  from = "/*"
+  to = "/.netlify/functions/index" # Nama fungsi = nama file (index.py)
+  status = 200
