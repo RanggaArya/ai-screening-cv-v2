@@ -10,7 +10,7 @@ genai.configure(api_key=settings.GOOGLE_API_KEY)
 gemini_model = genai.GenerativeModel('gemini-2.0-flash')
 
 # Path vector.json
-VECTOR_PATH = "app/data/vector.json"
+VECTOR_PATH = "app/vector.json"
 
 # Load vectors dari file
 with open(VECTOR_PATH, "r", encoding="utf-8") as f:
@@ -135,3 +135,4 @@ def run_final_summary(cv_feedback: str, project_feedback: str) -> dict:
     }}
     """
     return llm_call(prompt)
+
