@@ -1,4 +1,5 @@
 import os
+import app.install_extra
 import uuid
 from fastapi import FastAPI, UploadFile, File, HTTPException, Form, BackgroundTasks
 from typing import List
@@ -100,5 +101,6 @@ def get_evaluation_result(job_id: str):
         # Ambil detail error dari hasil jika ada
         error_detail = job.get("result", {}).get("error", "An unknown error occurred.")
         response_data["error"] = error_detail
+
 
     return response_data
