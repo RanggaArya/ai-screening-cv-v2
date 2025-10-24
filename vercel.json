@@ -13,7 +13,5 @@
     }
   ],
   "env": {
-    "TRANSFORMERS_CACHE": "/tmp",
-    "SENTENCE_TRANSFORMERS_HOME": "/tmp"
   }
 }
