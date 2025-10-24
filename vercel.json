@@ -11,5 +11,9 @@
       "src": "/(.*)",
       "dest": "app/main.py"
     }
-  ]
+  ],
+  "env": {
+    "TRANSFORMERS_CACHE": "/tmp",
+    "SENTENCE_TRANSFORMERS_HOME": "/tmp"
+  }
 }
