@@ -4,4 +4,3 @@ python-multipart
 pydantic
 pydantic-settings
 tenacity
-pypdf
